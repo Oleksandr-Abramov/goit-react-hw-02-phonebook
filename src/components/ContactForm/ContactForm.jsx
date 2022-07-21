@@ -6,11 +6,6 @@ import s from './ContactForm.module.css';
 export class ContactForm extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    contacts: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string,
-      })
-    ),
   };
 
   state = {
@@ -25,15 +20,6 @@ export class ContactForm extends Component {
 
   handleOnSubmitForm = evt => {
     evt.preventDefault();
-
-    this.props.contacts.find(
-      ({ name }) => name.toLowerCase() === this.state.name.toLowerCase()
-    )
-      ? alert(`${this.state.name} is already in contacts.`)
-      : this.sendContacts();
-  };
-
-  sendContacts = () => {
     const { name, number } = this.state;
     const dataForm = {
       name,

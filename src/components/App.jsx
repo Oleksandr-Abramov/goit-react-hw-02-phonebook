@@ -11,10 +11,15 @@ export class App extends Component {
   };
 
   handleSubmit = dataForm => {
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, dataForm],
-    }));
+    this.state.contacts.find(
+      ({ name }) => name.toLowerCase() === dataForm.name.toLowerCase()
+    )
+      ? alert(`${dataForm.name} is already in contacts.`)
+      : this.setState(prevState => ({
+          contacts: [...prevState.contacts, dataForm],
+        }));
   };
+
   handleOnInputFilter = evt => {
     const { value, name } = evt.target;
     this.setState({ [name]: value });
@@ -36,7 +41,7 @@ export class App extends Component {
     return (
       <div>
         <h1>Phonebook</h1>
-        <ContactForm onSubmit={this.handleSubmit} contacts={contacts} />
+        <ContactForm onSubmit={this.handleSubmit} />
 
         <h2>Contacts</h2>
         <Filter value={filter} onChange={this.handleOnInputFilter} />
